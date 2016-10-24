@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en"><head><title>Sql常用指令</title><meta charset="UTF-8"><link rel="shortcut ico" href="/favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"><meta name="keywords" content="hexo,blog"><meta name="description" content="Sql常用指令"><link rel="stylesheet" href="/static/semantic/semantic.css"><link rel="stylesheet" href="/static/css/main.css"><script src="/static/js/jquery.min.js"></script><script src="/static/semantic/semantic.min.js"></script><script src="/static/js/main.js"></script></head><body><div id="left_bar" class="ui vertical inverted sidebar menu left"><div class="item"><i class="user icon"></i><div class="content">Dason Cheng</div></div><div class="item"><i class="marker icon"></i><div class="content">China WuHan</div></div><a href="mailto:dasoncheng@yahoo.com" class="item"><i class="mail icon"></i><div class="content">dasoncheng@yahoo.com</div></a><a href="/" class="item"><i class="arrow circle right icon"></i><div class="content">Home</div></a><a href="/archives" class="item"><i class="arrow circle right icon"></i><div class="content">Archives</div></a><a href="/fun" class="item"><i class="arrow circle right icon"></i><div class="content">Fun</div></a><a href="/full" class="item"><i class="arrow circle right icon"></i><div class="content">Game</div></a><a href="/contact" class="item"><i class="arrow circle right icon"></i><div class="content">Contact</div></a></div><header><div class="nav-bar-min"><div class="ui fixed inverted main menu"><div class="ui container"><a id="sidebar" href="javascript:void(0);" class="icon item"><i class="content icon"></i></a><div class="right menu"><div class="vertically fitted borderless item"><a href="https://medium.com/@dasoncheng"><i class="icon medium"></i></a></div></div></div></div></div><div class="nav-bar-max"><div class="ui inverted menu"><div class="ui container"><a href="/" class="item">Home</a><a href="/archives" class="item">Archives</a><a href="/fun" class="item">Fun</a><a href="/full" class="item">Game</a><a href="/contact" class="item">Contact</a><div class="right menu"><a href="https://medium.com/@dasoncheng" class="item"><i class="icon medium"></i></a></div></div></div></div></header><section class="post class"><div class="ui container"><div class="ui stackable column grid"><div class="twelve wide column"><div class="article-container"><h1 id="Sql常用指令"><a href="#Sql常用指令" class="headerlink" title="Sql常用指令"></a>Sql常用指令</h1><p><em>hello-hexo</em><br><em>CONNECT</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#Connect Database</div><div class="line">mysql -u [name] -p</div><div class="line">mysql -u [name] -p -h [host]</div><div class="line"></div><div class="line">mysqldump -u [name] -p -h [host] [DBname] &gt;[filename].sql</div></pre></td></tr></table></figure>
+<p><em>CURD</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">#Create Database</div><div class="line">CREATE DATABASE [databaseName];</div><div class="line"></div><div class="line">#Drop Database</div><div class="line">DROP DATABASE [databaseName];</div><div class="line"></div><div class="line">#Create Table</div><div class="line">CREATE TABLE [tableName](</div><div class="line">    id      INT             NOT NULL    AUTO_INCREMENT,</div><div class="line">    title   VARCHAR(100)    NOT NULL,</div><div class="line">    author  VARCHAR(40)     NOT NULL,</div><div class="line">    date    DATETIME,</div><div class="line">    PRIMARY KEY (id)</div><div class="line">);</div><div class="line"></div><div class="line">#Drop Table</div><div class="line">DROP TABLE [tableName];</div><div class="line"></div><div class="line">#Insert Date</div><div class="line">INSERT INTO [tableName](field1,field2,...fieldN) VALUES (value1, value2,...valueN);</div><div class="line"></div><div class="line">#Select Data</div><div class="line">SELECT column_name,column_name FROM [tableName]</div><div class="line"></div><div class="line">#Update Data</div><div class="line">UPDATE [tableName] SET field1=new-value1, field2=new-value2 [WHERE Clause]</div><div class="line"></div><div class="line">#Delete Data</div><div class="line">DELETE FROM [tableName] [WHERE Clause]</div></pre></td></tr></table></figure>
+<p><em>联合查询</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select article.id,article.date,article.title,article.content,users.name from</div><div class="line">article inner join users on article.author_id=users.id</div></pre></td></tr></table></figure></p>
+<p><em>条件</em><br>&gt;<br>    LIKE ‘%jay’<br>    ORDER BY field1, [field2…] [ASC [DESC]]<br>    GROUP BY column_name;<br>    [WHERE condition1 [AND [OR]]<br>    WHERE name REGEXP ‘^[aeiou]|ok$’;<br>    LIMIT m,n   m+1条开始，取n条</p>
+<p><em>创建表示例</em><br>&gt;<br>    create table users(<br>        id       int            not null    auto_increment  primary key,<br>        date     datetime       not null    default now(),<br>        name     varchar(40)    not null    unique key,<br>        pwd      varchar(60)    not null<br>    );</p>
+<p><em>创建表（外键）示例</em><br>&gt;<br>    create table article(<br>        id          int(11)         not null    auto_increment,<br>        date        datetime        not null    default now(),<br>        author      varchar(40)     not null,<br>        content     varchar(100)    not null,<br>        PRIMARY KEY  (id),<br>        KEY author (author),<br>        CONSTRAINT  users_article FOREIGN  KEY(author) REFERENCES  users(name) on delete cascade on update cascade<br>    );</p>
+<p><em>外键的定义语法</em><br>&gt;<br>    [CONSTRAINT symbol] FOREIGN KEY [id] (index_col_name, …)<br>        REFERENCES tbl_name (index_col_name, …)<br>        [ON DELETE {RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT}]<br>        [ON UPDATE {RESTRICT | CASCADE | SET NULL | NO ACTION | SET DEFAULT}]<br>    该语法可以在 CREATE TABLE 和 ALTER TABLE 时使用，如果不指定CONSTRAINT symbol，MYSQL会自动生成一个名字。<br>    ON DELETE、ON UPDATE表示事件触发限制，可设参数：<br>    RESTRICT（限制外表中的外键改动）<br>    CASCADE（跟随外键改动）<br>    SET NULL（设空值）<br>    SET DEFAULT（设默认值）<br>    NO ACTION（无动作，默认的）</p>
+<p><em>批量插入示例</em><br>&gt;<br>    INSERT INTO insect (id,name,date,origin) VALUES<br>        (NULL,’housefly’,’2001-09-10’,’kitchen’),<br>        (NULL,’millipede’,’2001-09-10’,’driveway’),<br>        (NULL,’grasshopper’,’2001-09-10’,’front yard’);</p>
+<p><em>ALTER</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE testalter_tbl  DROP i;</div><div class="line">ALTER TABLE testalter_tbl ADD i INT;</div><div class="line">ALTER TABLE testalter_tbl ADD i INT FIRST;</div><div class="line">ALTER TABLE testalter_tbl ADD i INT AFTER c;</div><div class="line">#字段默认值</div><div class="line">ALTER TABLE testalter_tbl ALTER i SET DEFAULT 1000;</div><div class="line">#修改字段类型</div><div class="line">ALTER TABLE testalter_tbl MODIFY c CHAR(10);</div><div class="line">#修改表名</div><div class="line">ALTER TABLE testalter_tbl RENAME TO alter_tbl;</div><div class="line">#删除外键约束</div><div class="line">alter table [tableName] drop foreign key FK_ID;</div><div class="line">#添加外键约束</div><div class="line">alter table [tableName] add constraint FK_ID foreign key(你的外键字段名) REFERENCES 外表表名(对应的表的主键字段名)</div><div class="line"> on delete cascade on update cascade;</div></pre></td></tr></table></figure>
+<p><em>CHOOSE</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#Choose Database</div><div class="line">USE [databaseName];</div></pre></td></tr></table></figure>
+<p><em>OTHERS</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#Show</div><div class="line">show databases;#查看数据库</div><div class="line">show tables;#查看表</div><div class="line">SHOW COLUMNS FROM testalter_tbl;</div><div class="line">desc [databaseName];#查看表结构</div><div class="line">show create table locstock;#查看表有哪些外键</div><div class="line"></div><div class="line">#mysql导出数据</div><div class="line">select * from test_table into outfile "d:/a.txt";</div><div class="line">#mysql导入数据</div><div class="line">LOAD DATA INFILE '/tmp/1.txt' INTO TABLE tmpuserid FIELDS TERMINATED BY ',</div><div class="line">' ENCLOSED BY '"' LINES TERMINATED BY '\n';</div><div class="line"></div><div class="line">#date</div><div class="line">select now();   #2008-12-29 16:25:46--当前时间</div><div class="line">CURDATE() #2008-12-29</div><div class="line">CURTIME() #16:25:46</div><div class="line">SELECT DATE_ADD("1997-12-31 23:59:59",INTERVAL -1 DAY);  #日期增减</div><div class="line">DATE_FORMAT(@insertDate, '%Y-%m-%d') #日期格式化</div></pre></td></tr></table></figure>
+<p><em>导入导出</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//导出表</div><div class="line">SELECT * FROM test_table INTO OUTFILE &apos;/tmp/mysql_user.csv&apos; FIELDS TERMINATED BY &apos;,&apos;;</div><div class="line">//恢复本地的txt或csv文件到MySQL</div><div class="line">mysql&gt; use mysql;</div><div class="line"># txt</div><div class="line">mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql_user.csv&apos; INTO TABLE user;</div><div class="line"># csv</div><div class="line">mysql&gt; LOAD DATA LOCAL INFILE &apos;/tmp/mysql_user.csv&apos; INTO TABLE user FIELDS TERMINATED BY &apos;,&apos;;</div></pre></td></tr></table></figure></p>
+<p><em>参数</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">SET @keyword = &apos;%ip%&apos;;</div><div class="line">SELECT</div><div class="line">  articles.id,</div><div class="line">  articles.date,</div><div class="line">  articles.title,</div><div class="line">  articles.content,</div><div class="line">  users.name</div><div class="line">FROM articles</div><div class="line">  INNER JOIN users ON articles.author_id = users.id</div><div class="line">WHERE articles.title LIKE @keyword</div></pre></td></tr></table></figure></p>
+<p><em>user</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;origin&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;*********&apos; WITH GRANT OPTION;</div><div class="line">ALTER DATABASE `数据库` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci</div><div class="line">ALTER TABLE `数据表` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci</div></pre></td></tr></table></figure>
+<p><em>PDO 用法学习</em><br>执行sql语句： exec() 、query()、 perpare();</p>
+<ul>
+<li>1、query用来处理有结果集的，如select， 返回 PDOStatement 对象，失败返回false（当为 PDO::ERRMODE_SILENT，这也是默认的值）</li>
+<li>2、exec用来处理有返回影响行数的（int），如  insert（插入的行数）、 delete（删除的行数） 、update（和原数值不等才算），<br>  失败返回false （当为 PDO::ERRMODE_SILENT，这也是默认的值）</li>
+<li>3、prepare 执行所有sql，可以完全替代 query,exec的功能</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#exec用法</div><div class="line">try &#123;</div><div class="line">    $sql = "insert into limove(`id`, `name`, `order`) values(null, 'sjk', 1),(null, 'sjk',2)";</div><div class="line">    $rows = $pdo-&gt;exec($sql);　　//影响的条数 2</div><div class="line">    $pdo-&gt;lastInsertId(); //最后插入的id,有多条时返回的是第一条的id</div><div class="line">&#125; catch (Exception $e) &#123;</div><div class="line">    ee($pdo-&gt;errorInfo());</div><div class="line">&#125;</div><div class="line"></div><div class="line">#query方法同样也可以执行insert，delete 只是返回的结果集的格式</div><div class="line">#同样 lastInsertId 照样也可以使用</div><div class="line">$params = array (</div><div class="line">                PDO::MYSQL_ATTR_INIT_COMMAND =&gt; 'SET NAMES \'UTF8\'' ,</div><div class="line">                PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,</div><div class="line">        );</div><div class="line">$pdo = new PDO('mysql:host=127.0.0.1;dbname=test;port=3306', 'root', '',$params);</div><div class="line"></div><div class="line"></div><div class="line">$statement = "insert into card (id, json_str, f) values(null, 'ok', 2.3),(null, 'ok', 2.3)";</div><div class="line"></div><div class="line">$flag = $pdo-&gt;query($statement);</div><div class="line">ee($flag);</div><div class="line"></div><div class="line">ee($pdo-&gt;lastInsertId());</div><div class="line"></div><div class="line">PDOStatement Object</div><div class="line">(</div><div class="line">    [queryString] =&gt; insert into card (id, json_str, f) values(null, 'ok', 2.3),(null, 'ok', 2.3)</div><div class="line">)</div><div class="line"></div><div class="line">#query可以实现所有exec的功能</div><div class="line">$params = array (</div><div class="line">                PDO::MYSQL_ATTR_INIT_COMMAND =&gt; 'SET NAMES \'UTF8\'' ,</div><div class="line">                PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,</div><div class="line">        );</div><div class="line">$pdo = new PDO('mysql:host=127.0.0.1;dbname=test;port=3306', 'root', '',$params);</div><div class="line"></div><div class="line"></div><div class="line">$statement = "insert into card. (id, json_str, f) values(null, 'ok', 2.3),(null, 'ok', 2.3)";</div><div class="line">$statement = "select * from card";</div><div class="line">$statement = "delete  from card where id = 625";</div><div class="line">$statement = "update card set f=5 where id = 624";</div><div class="line"></div><div class="line"></div><div class="line">$stmt = $pdo-&gt;query($statement);</div><div class="line">ee($stmt-&gt;rowCount());</div></pre></td></tr></table></figure>
+<p>总结：</p>
+<p>　　1、query和exec都可以执行所有的sql语句，只是返回值不同而已。</p>
+<p>　　2、query可以实现所有exec的功能。</p>
+<p>　　3、当把select语句应用到 exec 时，总是返回 0</p>
+<p> 注意：批量插入时，依次插入当遇到错误时后面的插入失败，但是前面的会插入成功。</p>
+<p>预处理语句(prepare)示例，sql只编译一次，执行相同的sql效率会高。单个相比exec，query效率也高。</p>
+<p><em>绑定参数</em></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#无序方式</div><div class="line">   $stmt=$pdo-&gt;prepare("insert into shops(name, price, num, desn) values(:name,:price, :num, :desn)");</div><div class="line">   $stmt-&gt;execute(array(":price"=&gt;77, ":name"=&gt;"kkk3", ":num"=&gt;"453", ":desn"=&gt;"aaaaaa3"));</div><div class="line">$stmt-&gt;execute(array(":price"=&gt;77, ":name"=&gt;"kkk3", ":num"=&gt;"453", ":desn"=&gt;"aaaaaa3"));</div><div class="line"></div><div class="line">   #有序方式</div><div class="line">   $stmt=$pdo-&gt;prepare("insert into shops(name, price, num, desn) values(?, ?, ?, ?)"); //所有SQL都可执行</div><div class="line">   $stmt-&gt;execute(array("myname1", 11.2, 55, "very good"));</div><div class="line">   $stmt-&gt;execute(array("myname1", 11.2, 55, "very good"));</div></pre></td></tr></table></figure>
+<p>MySQL<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#前5行</div><div class="line">select * from table limit 5;</div><div class="line">select * from table limit 0,5;</div><div class="line">#6-15行</div><div class="line">select * from table limit 5,10;</div><div class="line"></div><div class="line">#当一个查询语句偏移量offset很大的时候，如select * from table limit 10000,10 ,</div><div class="line"> #最好不要直接使用limit，而是先获取到offset的id后，再直接使用limit size来获取数据。效果会好很多。</div><div class="line"></div><div class="line">select * From customers Where customer_id &gt;=(</div><div class="line">    select customer_id From customers Order By customer_id limit 10000,1</div><div class="line">) limit 10;</div></pre></td></tr></table></figure></p>
+<p>MS sqlServer<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#前2条记录</div><div class="line">select top 2 * from table;</div><div class="line">#前50%记录</div><div class="line">select top 50 persent from table;</div><div class="line">#10—20条记录</div><div class="line">SELECT TOP 10 * FROM TestTable WHERE (</div><div class="line">    ID NOT IN (</div><div class="line">        SELECT TOP 20 id FROM TestTable ORDER BY id</div><div class="line">    )</div><div class="line">)</div><div class="line">ORDER BY ID;</div></pre></td></tr></table></figure></p>
+<p>Oracle<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#前5条记录</div><div class="line">SELECT * FROM Persons WHERE ROWNUM &lt;= 5</div><div class="line"></div><div class="line">#从数据库表中第M条记录开始检索N条记录</div><div class="line">SELECT * FROM (SELECT ROWNUM r,t1.* From 表名称 t1 where rownum &lt; M + N) t2 where t2.r &gt;= M</div></pre></td></tr></table></figure></p>
+<p><em>MySQL DATA TYPE</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:left">范围（有符号）</th>
+<th style="text-align:left">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TINYINT</td>
+<td style="text-align:center">1</td>
+<td style="text-align:left">(-128，127)</td>
+<td style="text-align:left">(0，255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">SMALLINT</td>
+<td style="text-align:center">2</td>
+<td style="text-align:left">(-32 768，32 767)</td>
+<td style="text-align:left">(0，65 535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMINT</td>
+<td style="text-align:center">3</td>
+<td style="text-align:left">(-8 388 608，8 388 607)</td>
+<td style="text-align:left">(0，16 777 215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">INT</td>
+<td style="text-align:center">4</td>
+<td style="text-align:left">(-2 147 483 648，2 147 483 647)</td>
+<td style="text-align:left">(0，4 294 967 295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">BIGINT</td>
+<td style="text-align:center">8</td>
+<td style="text-align:left">(-9 233 372 036 854 775 808，9 223 372 036 854 775 807)</td>
+<td style="text-align:left">(0，18 446 744 073 709 551 615)</td>
+<td style="text-align:center">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:left">FLOAT</td>
+<td style="text-align:center">4</td>
+<td style="text-align:left">(-3.402 823 466 E+38，1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:left">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:left">DOUBLE</td>
+<td style="text-align:center">8</td>
+<td style="text-align:left">(1.797 693 134 862 315 7 E+308，2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:left">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度浮点数值</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:center">大小(字节)</th>
+<th style="text-align:left">范围</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DATE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:left">1000-01-01/9999-12-31</td>
+<td style="text-align:left">YYYY-MM-DD</td>
+<td style="text-align:center">日期值</td>
+</tr>
+<tr>
+<td style="text-align:left">TIME</td>
+<td style="text-align:center">3</td>
+<td style="text-align:left">‘-838:59:59’/‘838:59:59’</td>
+<td style="text-align:left">HH:MM:SS</td>
+<td style="text-align:center">时间值或持续时间</td>
+</tr>
+<tr>
+<td style="text-align:left">YEAR</td>
+<td style="text-align:center">1</td>
+<td style="text-align:left">1901/2155</td>
+<td style="text-align:left">YYYY</td>
+<td style="text-align:center">年份值</td>
+</tr>
+<tr>
+<td style="text-align:left">DATETIME</td>
+<td style="text-align:center">8</td>
+<td style="text-align:left">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td style="text-align:left">YYYY-MM-DD HH:MM:SS</td>
+<td style="text-align:center">混合日期和时间值</td>
+</tr>
+<tr>
+<td style="text-align:left">TIMESTAMP</td>
+<td style="text-align:center">8</td>
+<td style="text-align:left">1970-01-01 00:00:00/2037 年某时</td>
+<td style="text-align:left">YYYYMMDD HHMMSS</td>
+<td style="text-align:center">混合日期和时间值，时间戳</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CHAR</td>
+<td style="text-align:left">0-255字节</td>
+<td style="text-align:center">定长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">VARCHAR</td>
+<td style="text-align:left">0-65535 字节</td>
+<td style="text-align:center">变长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYBLOB</td>
+<td style="text-align:left">0-255字节</td>
+<td style="text-align:center">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYTEXT</td>
+<td style="text-align:left">0-255字节</td>
+<td style="text-align:center">短文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">BLOB</td>
+<td style="text-align:left">0-65 535字节</td>
+<td style="text-align:center">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">TEXT</td>
+<td style="text-align:left">0-65 535字节</td>
+<td style="text-align:center">长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMBLOB</td>
+<td style="text-align:left">0-16 777 215字节</td>
+<td style="text-align:center">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMTEXT</td>
+<td style="text-align:left">0-16 777 215字节</td>
+<td style="text-align:center">中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGBLOB</td>
+<td style="text-align:left">0-4 294 967 295字节</td>
+<td style="text-align:center">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGTEXT</td>
+<td style="text-align:left">0-4 294 967 295字节</td>
+<td style="text-align:center">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+</div></div><div class="four wide column"><div class="right-class"><aside><h2>Categories</h2><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DATABASE/">DATABASE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mac/">Mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Others/">Others</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WebUI/">WebUI</a><span class="category-list-count">1</span></li></ul></aside><aside><h2>Tags</h2><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub/">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos/">centos</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doc/">doc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/homebrew/">homebrew</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react-js/">react.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/semantic-ui/">semantic-ui</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-js/">vue.js</a><span class="tag-list-count">1</span></li></ul></aside><aside><h2>Archives</h2><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">12</span></li></ul></aside></div></div></div></div></section><footer><div class="ui container"><div class="ui stackable column grid"><div class="ten wide column"><div class="ui list"><div class="item">© GitHub, Inc.<a>DasonCheng</a></div></div></div><div class="six wide column"><a href="https://github.com/DasonCheng"><i class="icon github"></i></a></div></div></div></footer></body></html>
